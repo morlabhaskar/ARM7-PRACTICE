@@ -1,0 +1,15 @@
+#include<LPC21xx.h>
+#include "delay.h"
+
+#define OPIN 7 //@P0.7 Pin
+
+main(){
+	//cfg P0.7 Pin as gpio pin
+	IODIR0 |= 1<<OPIN;
+	while(1){
+		IOPIN0 |= 1<<OPIN;
+		delay_s(5);
+		IOPIN0 &= ~(1<<OPIN);
+		delay_s(5);
+	}
+}
