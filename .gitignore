@@ -1,0 +1,29 @@
+# Ignore build and object files
+*.o
+*.d
+*.crf
+*.lst
+*.map
+*.axf
+*.lnp
+*.dep
+
+# Ignore generated logs and reports
+*.htm
+*.html
+*.build_log.htm
+
+# Ignore project-specific build outputs
+*.uvgui.*
+*.uvoptx
+*.uvprojx
+
+# Ignore backup files
+*~
+*.bak
+
+# Ignore IDE or OS-specific files
+.vscode/
+*.user
+.DS_Store
+Thumbs.db
