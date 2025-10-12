@@ -1,3 +1,4 @@
+//Active LEDs @PO.0 to PO.7 Each 300 milli sec delay 
 #include<LPC21xx.h>
 #include "delay.h"
 

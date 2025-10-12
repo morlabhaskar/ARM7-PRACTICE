@@ -1,3 +1,4 @@
+//Flash an LED connected to any port line at the rate of 1 second for 10 times and stop.
 #include <LPC21xx.h>   // Header for LPC2129 registers
 #include "delay.h"
 #define OPIN 6  // Set P0.6 as output
