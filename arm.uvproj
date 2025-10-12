@@ -290,17 +290,17 @@
                 <Size>0x0</Size>
               </XRAM>
               <OCR_RVCT1>
-                <Type>0</Type>
+                <Type>1</Type>
                 <StartAddress>0x0</StartAddress>
                 <Size>0x0</Size>
               </OCR_RVCT1>
               <OCR_RVCT2>
-                <Type>0</Type>
+                <Type>1</Type>
                 <StartAddress>0x0</StartAddress>
                 <Size>0x0</Size>
               </OCR_RVCT2>
               <OCR_RVCT3>
-                <Type>0</Type>
+                <Type>1</Type>
                 <StartAddress>0x0</StartAddress>
                 <Size>0x0</Size>
               </OCR_RVCT3>
@@ -310,7 +310,7 @@
                 <Size>0x40000</Size>
               </OCR_RVCT4>
               <OCR_RVCT5>
-                <Type>0</Type>
+                <Type>1</Type>
                 <StartAddress>0x0</StartAddress>
                 <Size>0x0</Size>
               </OCR_RVCT5>
@@ -416,14 +416,9 @@
               <FilePath>.\delay.c</FilePath>
             </File>
             <File>
-              <FileName>gpio_toggle_pin_1.c</FileName>
+              <FileName>display_binary_of_LED.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\gpio_toggle_pin_1.c</FilePath>
-            </File>
-            <File>
-              <FileName>pin_connect_block.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\pin_connect_block.c</FilePath>
+              <FilePath>.\display_binary_of_LED.c</FilePath>
             </File>
           </Files>
         </Group>
