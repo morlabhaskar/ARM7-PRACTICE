@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\arm.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\arm.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Sat Oct 11 21:44:14 2025
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Sun Oct 12 19:49:00 2025
 <BR><P>
 <H3>Maximum Stack Usage =          8 bytes + Unknown(Functions without stacksize, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -19,7 +19,7 @@ Functions with no stack information
 <H3>
 Function Pointers
 </H3><UL>
- <LI><a href="#[2]">main</a> from gpio_toggle_pin_1.o(.text) referenced from rtentry2.o(.ARM.Collect$$rtentry$$0000000D)
+ <LI><a href="#[2]">main</a> from one_by_one_active_8leds.o(.text) referenced from rtentry2.o(.ARM.Collect$$rtentry$$0000000D)
 </UL>
 <P>
 <H3>
@@ -148,14 +148,14 @@ Global Symbols
 
 <P><STRONG><a name="[36]"></a>delay_us</STRONG> (ARM, 28 bytes, Stack size 0 bytes, delay.o(.text), UNUSED)
 
-<P><STRONG><a name="[37]"></a>delay_ms</STRONG> (ARM, 28 bytes, Stack size 0 bytes, delay.o(.text), UNUSED)
-
-<P><STRONG><a name="[11]"></a>delay_s</STRONG> (ARM, 28 bytes, Stack size 0 bytes, delay.o(.text))
+<P><STRONG><a name="[11]"></a>delay_ms</STRONG> (ARM, 28 bytes, Stack size 0 bytes, delay.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[2]"></a>main</STRONG> (ARM, 68 bytes, Stack size 0 bytes, gpio_toggle_pin_1.o(.text))
-<BR><BR>[Calls]<UL><LI><a href="#[11]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_s
+<P><STRONG><a name="[37]"></a>delay_s</STRONG> (ARM, 28 bytes, Stack size 0 bytes, delay.o(.text), UNUSED)
+
+<P><STRONG><a name="[2]"></a>main</STRONG> (ARM, 64 bytes, Stack size 0 bytes, one_by_one_active_8leds.o(.text))
+<BR><BR>[Calls]<UL><LI><a href="#[11]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> rtentry2.o(.ARM.Collect$$rtentry$$0000000D)
 </UL>

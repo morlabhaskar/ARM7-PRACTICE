@@ -236,10 +236,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>23</ColumnNumber>
+      <ColumnNumber>83</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
       <TopLine>1</TopLine>
-      <CurrentLine>13</CurrentLine>
+      <CurrentLine>10</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\pin_connect_block.c</PathWithFileName>
       <FilenameWithoutPath>pin_connect_block.c</FilenameWithoutPath>
