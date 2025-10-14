@@ -416,9 +416,9 @@
               <FilePath>.\delay.c</FilePath>
             </File>
             <File>
-              <FileName>display_binary_of_LED.c</FileName>
+              <FileName>flash_an_LED.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\display_binary_of_LED.c</FilePath>
+              <FilePath>.\flash_an_LED.c</FilePath>
             </File>
           </Files>
         </Group>

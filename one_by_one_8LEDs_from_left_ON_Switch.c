@@ -16,7 +16,7 @@ void pattern_left_to_right(){
         } else {
             IOCLR0 = (1 << i); // Active-low LED ON
         }
-        delay_ms(400);
+        delay_ms(800);
     }
 }
 
@@ -42,7 +42,7 @@ int main(){
     IODIR0 |= 0xFF;
 
     while(1){
-        //pattern_left_to_right();
-        pattern_right_to_left();
+        pattern_left_to_right();
+        //pattern_right_to_left();
     }
 }
