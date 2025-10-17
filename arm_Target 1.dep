@@ -2,7 +2,5 @@ Dependencies for Project 'arm', Target 'Target 1': (DO NOT MODIFY !)
 F (.\Startup.s)(0x532C14EA)(--cpu ARM7TDMI --pd "__EVAL SETA 1" -g --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Philips--list .\startup.lst --xref -o .\startup.o --depend .\startup.d)
 F (.\delay.c)(0x68EDF381)(-c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Philips-o .\delay.o --omf_browse .\delay.crf --depend .\delay.d)
 I (types.h)(0x68EA79F7)
-F (.\flash_an_LED.c)(0x68EDF612)(-c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Philips-o .\flash_an_led.o --omf_browse .\flash_an_led.crf --depend .\flash_an_led.d)
+F (.\gpio_readinputpin_writeoutputpin_1.c)(0x68F1D4F3)(-c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Philips-o .\gpio_readinputpin_writeoutputpin_1.o --omf_browse .\gpio_readinputpin_writeoutputpin_1.crf --depend .\gpio_readinputpin_writeoutputpin_1.d)
 I (C:\Keil\ARM\Inc\Philips\LPC21xx.h)(0x532C1500)
-I (delay.h)(0x68EA79FA)
-I (types.h)(0x68EA79F7)

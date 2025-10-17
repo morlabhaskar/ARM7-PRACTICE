@@ -416,9 +416,9 @@
               <FilePath>.\delay.c</FilePath>
             </File>
             <File>
-              <FileName>flash_an_LED.c</FileName>
+              <FileName>gpio_readinputpin_writeoutputpin_1.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\flash_an_LED.c</FilePath>
+              <FilePath>.\gpio_readinputpin_writeoutputpin_1.c</FilePath>
             </File>
           </Files>
         </Group>
