@@ -1,0 +1,6 @@
+#ifndef __DEFINES_H__
+#define __DEFINES_H__
+
+#define WRITEBYTE(WORD,BITSTARTPOS,BYTE) WORD=((WORD&~(0xFF<<BITSTARTPOS))|(BYTE<<BITSTARTPOS))
+
+#endif
