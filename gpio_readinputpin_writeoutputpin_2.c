@@ -10,7 +10,6 @@ main(){
         }
         else{
             IOPIN0 &=~(1<<OPIN);
-        }
-				
+        }	
     }
 }

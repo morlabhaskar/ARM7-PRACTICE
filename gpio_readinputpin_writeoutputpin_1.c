@@ -11,6 +11,5 @@ main(){
         else{
             IOCLR0=1<<OPIN;
         }
-				
     }
 }
