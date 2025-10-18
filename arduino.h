@@ -4,6 +4,10 @@
 
 void pinMode(u32 pinNo,u32 pinDir);
 void digitalWrite(u32 pinNo,u32 bit);
-void digitalRead(u32 pinNo);
+u32 digitalRead(u32 pinNo);
+
+void portMode(u32 pinStartNo,u32 nPins,u32 pinsDir);
+void write2Pins(u32 pinStartNo,u32 nPins,u32 data);
+u32 readPins(u32 pinStartNo,u32 nPins);
 
 #endif

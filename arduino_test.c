@@ -3,9 +3,11 @@
 #include "arduino_defines.h"
 
 main(){
-    pinMode(7,OUTPUT);
+    // pinMode(7,OUTPUT);
+    portMode(8,8,OUTPUT);
     while(1){
-        digitalWrite(7,digitalRead(0));
+        // digitalWrite(7,digitalRead(0));
+        write2Pins(8,8,readPins(0,8));
     }
 }
 

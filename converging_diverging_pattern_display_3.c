@@ -19,9 +19,9 @@ void write_2_port_byte(u32 portNo,u32 pinStartNo,u8 byte){
 main(){
     s32 i;
     WRITEBYTE(IODIR0,LED_AL_8,0xFF);
-	while(1){
+		while(1){
         for(i=0;i<8;i++){
-            write_2_port_byte(0,LED_AL_8,~pattern[i]);
+            write_2_port_byte(1,LED_AL_8,~pattern[i]);
             if(i==0){
 			    delay_ms(2000);
 		    }
