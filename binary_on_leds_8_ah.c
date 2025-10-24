@@ -15,8 +15,12 @@ int main(){
 	u32 i;
     IODIR0 |= (((1<<LED_AL_8)-1)<<LED_AL_8);
     for(i=0;i<=255;i++){
-        IOPIN0 = ((IOPIN0&~(((1<<LED_AL_8)-1)<<LED_AL_8)) | (~i<<LED_AL_8));
-        //write2pins(LED_AL_8,8,~i);
+        // IOSET0 = i<<LED_AL_8;
+        // delay_ms(500);
+        // IOCLR0 = 255<<LED_AL_8;
+        // delay_ms(500);
+        // IOPIN0 = ((IOPIN0&~(((1<<LED_AL_8)-1)<<LED_AL_8)) | (i<<LED_AL_8));
+        write2pins(LED_AL_8,8,i);
 		delay_ms(600);
     }
 	while(1);
