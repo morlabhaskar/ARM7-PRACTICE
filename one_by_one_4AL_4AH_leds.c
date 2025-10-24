@@ -1,5 +1,5 @@
 //Write an ECP to display below mentioned patterns on 8-led�s (4-active high led�s and
-//4-active low led�s)
+//4-active low leds)
 //a. Switch ON one by one led from left to right at the rate of 1 second
 //b. Switch ON one by one led from right to left at the rate of 1 second 
 #include <LPC21xx.h> 

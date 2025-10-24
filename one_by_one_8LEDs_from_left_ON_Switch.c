@@ -6,47 +6,45 @@
 
 #include <LPC21xx.h>
 #include "delay.h"
+#include "types.h"
 
 void pattern_right_to_left(){
-    unsigned int i;
-    for(i = 0; i < 8; i++) {
-        // Turn OFF all LEDs first
-        IOCLR0 = 0x0F;         // Clear active-high LEDs (P0.0-P0.3)
-        IOSET0 = 0xF0;         // Set inactive state for active-low LEDs (P0.4-P0.7)
-
-        // Turn ON current LED
+    s32 i;
+    for(i = 0; i < 8; i++) {    
         if(i < 4) {
-            IOSET0 = (1 << i); // Active-high LED ON
+            IOCLR0 = (1 << i); 
+            delay_ms(500);
+            IOSET0 = (1 << i);  
         } else {
-            IOCLR0 = (1 << i); // Active-low LED ON
+            IOSET0 = (1<<i);
+            delay_ms(500);
+            IOCLR0 = (1 << i);  
         }
-        delay_ms(800);
     }
 }
 
-void pattern_left_to_right(void) {
-    int i;
+void pattern_left_to_right() {
+    s32 i;
     for(i = 7; i >= 0; i--) {
-        // Turn OFF all LEDs first
-        IOCLR0 = 0x0F;         // Clear active-high LEDs
-        IOSET0 = 0xF0;         // Set inactive state for active-low LEDs
-
-        // Turn ON current LED
         if(i < 4) {
-            IOSET0 = (1 << i); // Active-high LED ON
+            IOCLR0 = (1 << i); 
+            delay_ms(500);
+            IOSET0 = (1 << i); 
         } else {
-            IOCLR0 = (1 << i); // Active-low LED ON
+            IOSET0 = (1<<i);
+            delay_ms(500);
+            IOCLR0 = (1 << i); 
         }
-        delay_ms(400);
     }
 }
 
 int main(){
-    //configure P0-0 to P0.7 as Output 0xFF=(1111 1111)
     IODIR0 |= 0xFF;
-
+	
+    IOSET0 = 0x0F;
+    delay_ms(600);
     while(1){
-        //pattern_left_to_right();
+        // pattern_left_to_right();
         pattern_right_to_left();
     }
 }
