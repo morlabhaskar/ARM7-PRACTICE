@@ -1,9 +1,13 @@
-//Write an ECP to display below mentioned patterns on 8-led’s (4-active high led’s and 4-active low led’s) 
-//Switch ON one by one led from left to right at the rate of 1 second
+/*
+2. Write an ECP to display below mentioned patterns on 8-led’s (4-active high led’s and 4-active low led’s)
+    a. Switch ON one by one led from left to right at the rate of 1 second
+    b. Switch ON one by one led from right to left at the rate of 1 second 
+*/
+
 #include <LPC21xx.h>
 #include "delay.h"
 
-void pattern_left_to_right(){
+void pattern_right_to_left(){
     unsigned int i;
     for(i = 0; i < 8; i++) {
         // Turn OFF all LEDs first
@@ -20,7 +24,7 @@ void pattern_left_to_right(){
     }
 }
 
-void pattern_right_to_left(void) {
+void pattern_left_to_right(void) {
     int i;
     for(i = 7; i >= 0; i--) {
         // Turn OFF all LEDs first
@@ -42,7 +46,7 @@ int main(){
     IODIR0 |= 0xFF;
 
     while(1){
-        pattern_left_to_right();
-        //pattern_right_to_left();
+        //pattern_left_to_right();
+        pattern_right_to_left();
     }
 }
