@@ -7,7 +7,9 @@ main(){
 	u32 i;
     IODIR0 |= 255<<LED_AL_8;
     for(i=0;i<=255;i++){
-        IOPIN0 = ((IOPIN0 &~(255<<LED_AL_8)) | (~i<<LED_AL_8));
-        delay_ms(700);
+        IOSET0 = 255<<LED_AL_8;
+        delay_ms(500);
+        IOCLR0 = (0xF0^i)<<LED_AL_8;
+        delay_ms(500);
     }
 }
