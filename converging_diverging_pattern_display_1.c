@@ -3,7 +3,7 @@
 #include "delay.h"
 #define LED_AL_8 8
 
-const u8 pattern[]={0xFF,0x81,0x42,0x24,0x18,0x24,0x42,0x81};
+const u8 pattern[]={0xFF,0x81,0x42,0x24,0x18,0x24,0x42,0x81}
 
 main(){
     s32 i;
@@ -16,9 +16,9 @@ main(){
         else{
             delay_ms(100*i);
         }
-        IOSET0=0xFF<<LED_AL_8;
+        IOSET0=0xFF<<LED_AL_8;     
         IOCLR0=pattern[i]<<LED_AL_8;
         
     }
-		while(1);
+	while(1);
 }
