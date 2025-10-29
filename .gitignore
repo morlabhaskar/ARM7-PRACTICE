@@ -5,6 +5,8 @@
 !*.c
 !*.h
 
+!ARM WEEKLY ONE
+
 # Allow this .gitignore file itself
 !.gitignore
 
