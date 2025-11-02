@@ -20,14 +20,6 @@ void pinMode(u32 pinNo,u32 pinDir){
         }
     }
 }
-void digitalWrite(u32 pinNo,u32 bit){
-    if(pinNo<32){
-        bit ? (IOSET0 = 1<<pinNo) : (IOCLR0 = 1<<pinNo);
-    }
-    else if((pinNo>=32) && (pinNo<=47)){
-        bit ? (IOSET1 = (1<<(pinNo-16))) : (IOCLR1 = (1<<(pinNo-16)));
-    }
-}
 u32 digitalRead(u32 pinNo){
     u32 bit;
     if(pinNo<32){
@@ -37,6 +29,14 @@ u32 digitalRead(u32 pinNo){
         bit = ((IOPIN1>>(pinNo-16))&1);
     }
     return bit;
+}
+void digitalWrite(u32 pinNo,u32 bit){
+    if(pinNo<32){
+        bit ? (IOSET0 = 1<<pinNo) : (IOCLR0 = 1<<pinNo);
+    }
+    else if((pinNo>=32) && (pinNo<=47)){
+        bit ? (IOSET1 = (1<<(pinNo-16))) : (IOCLR1 = (1<<(pinNo-16)));
+    }
 }
 u32 power_of_2(u32 exponent){
     u32 result=1;
@@ -61,7 +61,7 @@ void portMode(u32 pinStartNo,u32 nPins,u32 pinsDir){
             IODIR1 |= ((1<<nPins)-1)<<(pinStartNo-16);
         }
         else{
-            IODIR1 &= ~((1<<nPins)-1)<<(pinStartNo-16);
+            IODIR1 &= ~(((1<<nPins)-1)<<(pinStartNo-16));
         }
     }
 }
@@ -85,5 +85,5 @@ u32 readPins(u32 pinStartNo,u32 nPins){
     else if((pinStartNo>=32) && (pinStartNo<=47)){
         data = ((IOPIN1>>(pinStartNo-16))&((1<<nPins)-1));
     }
-		return data;
+	return data;
 }
