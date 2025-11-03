@@ -10,5 +10,6 @@ typedef unsigned int u32;
 typedef int s32;
 typedef float f32;
 typedef const char cs8;
+typedef unsigned const char cu8;
 
 #endif
