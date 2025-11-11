@@ -1,8 +1,7 @@
 #include "seg.h"
 #include "types.h"
 
-main()
-{
+main(){
     u32 i, dly;
     init_2_mux_segs();
     while (1){
