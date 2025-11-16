@@ -11,4 +11,10 @@
 #define PWM1_0_0 PIN_FUNC3
 #define RSVD_0_0 PIN_FUNC4
 
+//defines for ADC
+#define AIN0_0_27 PIN_FUNC2
+#define AIN1_0_28 PIN_FUNC2
+#define AIN2_0_29 PIN_FUNC2
+#define AIN3_0_30 PIN_FUNC2
+
 #endif
