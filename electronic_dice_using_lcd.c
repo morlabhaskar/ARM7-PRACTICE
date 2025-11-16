@@ -15,7 +15,7 @@ main(){
         if(digitalRead(ROLL_SW)==0){
             diceFace=(rand()%6)+1;
             srand(seed++);
-            delay_ms(5000);
+            delay_ms(50);
         }
     }
 }

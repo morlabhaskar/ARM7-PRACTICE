@@ -28,15 +28,16 @@ void Init_LCD(void){
     //power on delay
     delay_ms(15);
     //initialize sequence start
-    CmdLCD(MODE_8BIT_1LINE);
+    CmdLCD(MODE_8BIT_1LINE);//0x30
     delay_us(4100);
-    CmdLCD(MODE_8BIT_1LINE);
+    CmdLCD(MODE_8BIT_1LINE);//0x30
     delay_us(100);
-    CmdLCD(MODE_8BIT_1LINE);
-    CmdLCD(MODE_8BIT_2LINE);
-    CmdLCD(DSP_ON_CUR_OFF);
-    CmdLCD(CLEAR_LCD);
-    CmdLCD(SHIFT_CUR_RIGHT);
+    CmdLCD(MODE_8BIT_1LINE);//0x30
+    CmdLCD(MODE_8BIT_2LINE);//0x38
+    CmdLCD(DSP_ON_CUR_OFF);//0x0C
+    // CmdLCD(DSP_ON_CUR_BLINK);
+    CmdLCD(CLEAR_LCD);//0x01
+    CmdLCD(SHIFT_CUR_RIGHT);//0x06
     //initialization sequence end
 }
 
@@ -49,7 +50,7 @@ void CharLCD(u8 asciival){
 
 void StrLCD(s8 *p){
     while(*p){
-        CharLCD(*p++);;
+        CharLCD(*p++);
     }
 }
 void U32LCD(u32 n){
