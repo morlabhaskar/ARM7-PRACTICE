@@ -37,4 +37,18 @@ u32 ColCheck(void){
     }
     return c;
 }
-u32 KeyScan(void);
+u32 KeyScan(void){
+    u32 r,c,keyV;
+    //Initialize KPM
+    Init_KPM();
+    //wait for any key press detection
+    while(ColScan());
+    //upon key press detection
+    //identify row in which key is pressed
+    r=RowCheck();
+    //identify col in which key is pressed
+    c=ColCheck();
+    //extract key value from LUT
+    keyV = kpmLUT[r][c];
+    return keyV;
+}
