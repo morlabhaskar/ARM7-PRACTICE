@@ -40,14 +40,12 @@ void Init_LCD(void){
     CmdLCD(SHIFT_CUR_RIGHT);//0x06
     //initialization sequence end
 }
-
 void CharLCD(u8 asciival){
     //select data register
     digitalWrite(LCD_RS,1);
     //write to DDRAM / display via data register
     WriteLCD(asciival);
 }
-
 void StrLCD(s8 *p){
     while(*p){
         CharLCD(*p++);
@@ -88,7 +86,6 @@ void F32LCD(f32 fn,u32 nDp){
         n=fn;
         CharLCD(n+48);
     }
-
 }
 void BuildCGRAM(u8 *p,u8 nBytes){
     u32 i;

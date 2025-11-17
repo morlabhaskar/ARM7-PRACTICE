@@ -16,7 +16,7 @@ int main(void){
 		CmdLCD(GOTO_LINE1_POS0);
 		StrLCD("India");
     delay_ms(1000);
-    CmdLCD(CLEAR_LCD);
+    //CmdLCD(CLEAR_LCD);
     BuildCGRAM((u8*)cgramLUT,8);
 
     // 2) If still blank, write full-block characters to force display:
