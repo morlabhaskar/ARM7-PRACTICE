@@ -6,25 +6,25 @@
 
 void WriteLCD(u8 byte){
     //select write operations
-    digitalWrite(LCD_RW,0);
+    digitalWrite(LCD_RW,0);//17
     //write any byte onto data pins(d0-d7)
-    write2Pins(LCD_DATA,8,byte);
+    write2Pins(LCD_DATA,8,byte);//8
     //provide high to low pulse for latching
-    digitalWrite(LCD_EN,1);
+    digitalWrite(LCD_EN,1);//18
     delay_us(1);
-    digitalWrite(LCD_EN,0);
+    digitalWrite(LCD_EN,0);//18
     //byte between byte time
     delay_ms(2);
 }
 void CmdLCD(u8 cmdByte){
     //select cmd register
-    digitalWrite(LCD_RS,0);
+    digitalWrite(LCD_RS,0);//16
     //write to cmd register via data pins
     WriteLCD(cmdByte);
 }
 void Init_LCD(void){
     //cfg lcd data pins & 3 control pins as gpio out
-    portMode(LCD_DATA,11,OUTPUT);
+    portMode(LCD_DATA,11,OUTPUT);//8
     //power on delay
     delay_ms(15);
     //initialize sequence start
@@ -42,7 +42,7 @@ void Init_LCD(void){
 }
 void CharLCD(u8 asciival){
     //select data register
-    digitalWrite(LCD_RS,1);
+    digitalWrite(LCD_RS,1);//16
     //write to DDRAM / display via data register
     WriteLCD(asciival);
 }

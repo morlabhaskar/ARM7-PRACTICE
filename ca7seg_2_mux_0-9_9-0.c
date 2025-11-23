@@ -33,6 +33,5 @@ main(){
             write2Pins(OPINS,8,segLUT[i]);
             delay_ms(500);
         }
-
     }
 }
