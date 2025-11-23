@@ -1,10 +1,12 @@
 #include "types.h"
 #include "delay.h"
 #include "lcd_defines.h"
+#include "kpm.h"
 #include "lcd.h"
 u8 name[]="               MORLA BHASKAR NANI";
 main(){
     Init_LCD();
+    Init_KPM();
     StrLCD(name);
     while(1){
         CmdLCD(0x18);

@@ -83,7 +83,6 @@ void BuildCGRAM(u8 *p,u8 nBytes){
 }
 
 //kpm
-// u32 kpmLUT[4][4]={{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16}};
 u32 kpmLUT[4][4]={{'7','8','9','/'},{'4','5','6','x'},{'1','2','3','-'},{'C','0','=','+'}};
 void Init_KPM(void){
     //rows output & grounded
@@ -135,8 +134,9 @@ u32 KeyScan(void){
     keyV = kpmLUT[r][c];
     return keyV;
 }
-cu8 pass[6]={'1','2','3','4','5','6'};
-u8 password[6];
+// u8 pass[]={'1','2','3','4','5','6'};
+u8 pass[]="123456";
+u8 password[10];
 u32 key,i;
 main(){
     Init_LCD();
@@ -168,14 +168,15 @@ main(){
     IOCLR0 = (1<<GLED) | (1<<RLED); 
     if(strcmp(pass,password)==0){
         IOSET0 = 1<<GLED;
-        CmdLCD(GOTO_LINE2_POS0);
+        CmdLCD(GOTO_LINE1_POS0);
         StrLCD("CORRECT PASSWORD");
+        CmdLCD(GOTO_LINE2_POS0);
+        StrLCD("HI...BHASKAR");
     }
     else{
         IOSET0 = 1<<RLED;
         CmdLCD(GOTO_LINE2_POS0);
         StrLCD("WRONG PASSWORD");
     }
-
     while(1);
 }
