@@ -205,7 +205,7 @@ main()
 
         delay_ms(2000);
         IOCLR0 = (1 << GLED);
-    MENU:
+        MENU:
         CmdLCD(GOTO_LINE1_POS0);
         StrLCD("D :DETAILS        ");
         CmdLCD(GOTO_LINE2_POS0);
@@ -311,8 +311,7 @@ main()
             CmdLCD(GOTO_LINE2_POS0);
             StrLCD("  WELLCOME         ");
             key = KeyScan();
-            while (ColScan() == 0)
-                ;
+            while (ColScan() == 0);
             if (key == '=')
             {
                 goto MENU;
