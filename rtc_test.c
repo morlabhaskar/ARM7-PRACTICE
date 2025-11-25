@@ -1,5 +1,4 @@
 #include <LPC21xx.H>
-
 #include "lcd.h"
 #include "lcd_defines.h"
 #include "types.h"

@@ -1,5 +1,4 @@
 #include <lpc214x.h>
-
 #include "rtc.h"
 #include "lcd.h"
 
