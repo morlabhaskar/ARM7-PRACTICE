@@ -11,7 +11,7 @@ void Init_ADC(void){
     //cfg ADCR
     ADCR = (1<<PDN_BIT)|(CLKDIV<<CLKDIV_BITS);
 }
-u32 Read_ADC(u32 chNo,u32 *adcDVal,f32 *analogReading){
+void Read_ADC(u32 chNo,u32 *adcDVal,f32 *analogReading){
     //clear any previous channel sel
     ADCR &= 0xFFFFFF00;
     //update with new/req channel & start conversion
