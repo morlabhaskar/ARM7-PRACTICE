@@ -47,7 +47,7 @@ minute value (0 59)
 second value (0 59) seperated by ':'
 */
 void DisplayRTCTime(u32 hour, u32 minute, u32 second){
-	CmdLCD(GOTO_LINE1_POS0);
+	CmdLCD(GOTO_LINE1_POS0+2);
 	CharLCD((hour/10)+48);
 	CharLCD((hour%10)+48);
 	CharLCD(':');
@@ -76,7 +76,7 @@ Month (1 12)
 Year (four digits) and seperated by '/'
 */
 void DisplayRTCDate(u32 date, u32 month, u32 year){
-	CmdLCD(GOTO_LINE2_POS0);
+	CmdLCD(GOTO_LINE2_POS0+2);
 	CharLCD((date/10)+48);
 	CharLCD((date%10)+48);
 	CharLCD('/');
@@ -122,7 +122,7 @@ Display the current day of the week on LCD
 dow (Day of Week) (0=Sunday, ..., 6=Saturday)
 */
 void DisplayRTCDay(u32 dow){
-	CmdLCD(GOTO_LINE1_POS0+10);
+	CmdLCD(GOTO_LINE1_POS0+12);
 	StrLCD(week[dow]);
 }
 

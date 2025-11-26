@@ -189,8 +189,7 @@ main(){
             CmdLCD(GOTO_LINE2_POS0 + 5 + i);
         }
         password[i] = '\0';
-        while (ColScan() == 0)
-            ; // wait until key is released
+        while (ColScan() == 0); // wait until key is released
     }
     IODIR0 |= (1 << GLED) | (1 << RLED);
     IOCLR0 = (1 << GLED) | (1 << RLED);
