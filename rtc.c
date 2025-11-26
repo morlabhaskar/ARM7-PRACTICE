@@ -123,7 +123,7 @@ dow (Day of Week) (0=Sunday, ..., 6=Saturday)
 */
 void DisplayRTCDay(u32 dow){
 	CmdLCD(GOTO_LINE1_POS0+10);
-	StrLCD(week[dow]);  
+	StrLCD(week[dow]);
 }
 
 /*
