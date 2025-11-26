@@ -161,8 +161,7 @@ u8 pass[] = "123456";
 u8 password[10];
 u8 new1[10], new2[10];
 u32 key, i = 0;
-main()
-{
+main(){
     Init_LCD();
     delay_ms(10);
     BuildCGRAM((u8 *)passwordLUT, 8);
@@ -211,9 +210,7 @@ main()
         CmdLCD(GOTO_LINE2_POS0);
         StrLCD("E :EDIT PASSWORD   ");
         key = KeyScan();
-        while (ColScan() == 0)
-            ;
-
+        while (ColScan() == 0);
         if (key == '/')
         {
             i = 0;
