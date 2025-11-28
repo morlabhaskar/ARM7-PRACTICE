@@ -2,6 +2,7 @@
 #include<string.h>
 #include "lcd.h"
 #include "lcd_defines.h"
+#include "pin_connect_block.h"
 #include "types.h"
 #include "rtc.h"
 #include "kpm.h"
@@ -9,8 +10,18 @@
 #include "arduino.h"
 #include "system_init.h"
 
-#define ENTRY_SW 0 //@P0.0
-#define EINT_SW 1  //@P0.1
+#define ENTRY_SW 0 //@P0.0 ENTRY
+#define EINT_SW 1  //@P0.1 EINT0
+
+#define EINT0_PIN_0_1 3
+#define EINT0_VIC_CHNO 14
+#define EINT0_STATUS_LED 16
+
+
+u8 password[] = "1234",pass[10];
+s32 hour,min,sec,date,month,year,day;
+u32 key,i;
+
 cu8 UserCGRAM[8][8] = {
     {0x0E,0x11,0x11,0x1F,0x1B,0x1B,0x1F,0x00}, // Lock
     {0x04,0x0E,0x0E,0x0E,0x1F,0x00,0x00,0x00}, // Key
@@ -20,9 +31,8 @@ cu8 UserCGRAM[8][8] = {
     {0x04,0x06,0x1F,0x06,0x04,0x00,0x00,0x00}, // Arrow
     {0x04,0x0E,0x0E,0x04,0x00,0x04,0x00,0x00}  // Warning
 };
-u8 password[] = "1234",pass[10];
-u32 key,i;
 
+void eint0_isr(void) __irq;
 void display_title(){
     CmdLCD(GOTO_LINE1_POS0);
     StrLCD("   TIME GUARD   ");
@@ -31,10 +41,10 @@ void display_title(){
     delay_ms(1000);
     CmdLCD(CLEAR_LCD);
 }
-s32 hour,min,sec,date,month,year,day;
+
 void display_RTC(){
     while(digitalRead(ENTRY_SW) && digitalRead(EINT_SW)){
-        
+
         // Get and display the current time on LCD
 	    GetRTCTimeInfo(&hour,&min,&sec);
 	    DisplayRTCTime(hour,min,sec);
@@ -44,9 +54,9 @@ void display_RTC(){
 
 	    GetRTCDay(&day);
 	    DisplayRTCDay(day);
-        delay_ms(500);
     }
 }
+
 u32 chack_password(){
     i = 0;
     memset(pass, 0, sizeof(pass));
@@ -102,12 +112,21 @@ main(){
     init_system();
     delay_ms(10);
     IODIR0 &= ~((1<<ENTRY_SW) | (1<<EINT_SW));
+    // IODIR0 &= ~(1<<ENTRY_SW);
+
+    // IODIR1 |= 1<<EINT0_STATUS_LED;
+
+    //cfg p0.1 pin as EINT0 input pin
+    // CfgPortPinFunc(0,1,EINT0_PIN_0_1);
+    // VICIntEnable = 1<<EINT0_VIC_CHNO;
+    // VICVectCntl0 = (1<<5) | EINT0_VIC_CHNO;
+    // VICVectAddr0 = (u32)eint0_isr;
+    // EXTMODE = 1<<0;
 
     // Set the initial time (hours, minutes, seconds)
 	SetRTCTimeInfo(00,00,00);
 	SetRTCDateInfo(27,11,2025);
 	SetRTCDay(4);
-
 
     while(1){
         do{
@@ -117,9 +136,9 @@ main(){
         CmdLCD(CLEAR_LCD);
         //for entry switch
         if(digitalRead(ENTRY_SW)==0){
-            u32 count=0,fail=0;
+            u32 count=0,fail=0,status;
             while(count<3){
-                u32 status = chack_password();
+                status = chack_password();
                 if(status==1){
                     break;
                 }
@@ -127,32 +146,42 @@ main(){
                 BuildCGRAM((u8*)UserCGRAM[6],8);
                 CmdLCD(GOTO_LINE1_POS0);
                 CharLCD(0);
-                CmdLCD(GOTO_LINE1_POS0+2);
-                StrLCD("TRY AGAIN");
+                if(count!=3){
+                    CmdLCD(GOTO_LINE1_POS0+2);
+                    StrLCD("TRY AGAIN");
+                }
                 delay_ms(1000);
                 count++;
             }
             if(count==3) fail=1;
             if(fail){
                 CmdLCD(CLEAR_LCD);
-                StrLCD("LIMIT EXCEEDED ");
-            }else{
-                BuildCGRAM((u8 *)UserCGRAM[3], 8);
-                CmdLCD(GOTO_LINE1_POS0);
-                CharLCD(0);
-                CmdLCD(GOTO_LINE1_POS0 + 2);
-                StrLCD("LOGIN SUCCESS   ");
+                StrLCD("3TIMES ATTEMPTED");
+                CmdLCD(GOTO_LINE2_POS0);
+                StrLCD("  LOGIN FAILED  ");
             }
-            
-            
-            
+            if(status==1){
+                delay_ms(1000);
+                CmdLCD(CLEAR_LCD);
+                StrLCD("HI BHASKAR");
+            }
         }
-        //for interrupt switch
-        else if(digitalRead(EINT_SW)==0){
-            CmdLCD(GOTO_LINE1_POS0);
-            StrLCD("INTERRUPT MODE");
-            delay_ms(2000);
+
+        while(1){
+            CmdLCD(CLEAR_LCD);
+            display_RTC();
         }
-        while(1);
     }
+}
+
+void eint0_isr(void) __irq{
+    //eint0 isr user activity begins
+    //toggle EINT0 status led upon interrupt fired/raised
+    IOPIN1 ^= 1<<EINT0_STATUS_LED;
+    delay_ms(5000);
+    //eint0 isr user activity ends
+    //clear EINT0 status in External Interrupt Peripheral 
+    EXTINT = 1<<0;
+    //clear EINT0 status in VIC peripheral
+    VICVectAddr = 0;
 }
