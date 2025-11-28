@@ -19,7 +19,7 @@
 
 
 u8 password[] = "1234",pass[10];
-s32 hour,min,sec,date,month,year,day;
+s32 hour,min,sec,date,month,year,day,is_login,temp;
 u32 key,i;
 
 cu8 UserCGRAM[8][8] = {
@@ -32,7 +32,6 @@ cu8 UserCGRAM[8][8] = {
     {0x04,0x0E,0x0E,0x04,0x00,0x04,0x00,0x00}  // Warning
 };
 
-void eint0_isr(void) __irq;
 void display_title(){
     CmdLCD(GOTO_LINE1_POS0);
     StrLCD("   TIME GUARD   ");
@@ -43,6 +42,7 @@ void display_title(){
 }
 
 void display_RTC(){
+    CmdLCD(CLEAR_LCD);
     while(digitalRead(ENTRY_SW)){
 
         // Get and display the current time on LCD
@@ -93,6 +93,7 @@ u32 chack_password(){
         StrLCD("LOGIN SUCCESS   ");
         CmdLCD(GOTO_LINE2_POS0);
         StrLCD("WAIT 2 SECONDS     ");
+        is_login=1;
         delay_ms(2000);
         return 1;
     }
@@ -107,13 +108,166 @@ u32 chack_password(){
         return 0;
     }
 }
+void change_time(){
+    u8 str[4];
+    CmdLCD(CLEAR_LCD);
+    StrLCD("SET HOURS");
+    for(temp=0;temp<2;temp++){
+        key=KeyScan();
+        str[temp]=key;
+        CmdLCD(GOTO_LINE2_POS0+temp);
+        CharLCD(key);
+        delay_ms(200);
+        while(ColScan()==0);
+    }
+    str[temp] = '\0'; 
+    hour=my_atoi(str);
+
+    CmdLCD(CLEAR_LCD);
+    StrLCD("SET MUNUTES");
+    for(temp=0;temp<2;temp++){
+        key=KeyScan();
+        str[temp]=key;
+        CmdLCD(GOTO_LINE2_POS0+temp);
+        CharLCD(key);
+        delay_ms(200);
+        while(ColScan()==0);
+    }
+    str[temp] = '\0'; 
+    min=my_atoi(str);
+
+    CmdLCD(CLEAR_LCD);
+    StrLCD("SET SECONDS");
+    for(temp=0;temp<2;temp++){
+        key=KeyScan();
+        str[temp]=key;
+        CmdLCD(GOTO_LINE2_POS0+temp);
+        CharLCD(key);
+        delay_ms(200);
+        while(ColScan()==0);
+    }
+    str[temp] = '\0'; 
+    sec=my_atoi(str);
+
+    SetRTCTimeInfo(hour,min,sec);
+    CmdLCD(CLEAR_LCD);
+}
+void change_date(){
+    u8 str[4];
+    CmdLCD(CLEAR_LCD);
+    StrLCD("SET DATE");
+    for(temp=0;temp<2;temp++){
+        key=KeyScan();
+        str[temp]=key;
+        CmdLCD(GOTO_LINE2_POS0+temp);
+        CharLCD(key);
+        delay_ms(200);
+        while(ColScan()==0);
+    }
+    str[temp] = '\0'; 
+    date=my_atoi(str);
+
+    CmdLCD(CLEAR_LCD);
+    StrLCD("SET MONTH");
+    for(temp=0;temp<2;temp++){
+        key=KeyScan();
+        str[temp]=key;
+        CmdLCD(GOTO_LINE2_POS0+temp);
+        CharLCD(key);
+        delay_ms(200);
+        while(ColScan()==0);
+    }
+    str[temp] = '\0'; 
+    month=my_atoi(str);
+
+    CmdLCD(CLEAR_LCD);
+    StrLCD("SET YEAR");
+    for(temp=0;temp<4;temp++){
+        key=KeyScan();
+        str[temp]=key;
+        CmdLCD(GOTO_LINE2_POS0+temp);
+        CharLCD(key);
+        delay_ms(200);
+        while(ColScan()==0);
+    }
+    str[temp] = '\0'; 
+    year=my_atoi(str);
+
+    CmdLCD(CLEAR_LCD);
+    StrLCD("0:S 1:M 2:T 3:W");
+    CmdLCD(GOTO_LINE2_POS0);
+    StrLCD("4:T 5:F 6:S");
+    delay_ms(200);
+    key=KeyScan();
+    while(ColScan()==0);
+    day=key-'0';
+    SetRTCDateInfo(date,month,year);
+    SetRTCDay(day);
+    CmdLCD(CLEAR_LCD);
+    
+}
+void open_menu(){
+    CmdLCD(GOTO_LINE1_POS0);
+    StrLCD("1:CPWD 2:CTIME");
+    CmdLCD(GOTO_LINE2_POS0);
+    StrLCD("3:CDATE 4:EXIT");
+    
+    key=KeyScan();
+    while(ColScan()==0);
+    CmdLCD(CLEAR_LCD);
+    switch(key){
+        case '2':
+            change_time();
+            break;   
+        case '3':
+            change_date();
+            break;  
+        default:
+            break; 
+    }
+}
+void eint0_isr(void) __irq{
+    //eint0 isr user activity begins
+    //toggle EINT0 status led upon interrupt fired/raised
+    IOPIN1 ^= 1<<EINT0_STATUS_LED;
+    // CmdLCD(CLEAR_LCD);
+    
+    CmdLCD(GOTO_LINE1_POS0);
+    StrLCD("   SHOW MENU   ");
+    CmdLCD(GOTO_LINE2_POS0);
+    StrLCD("   TO PRESS 1   "); 
+    
+    
+   
+    key=KeyScan();
+    while(ColScan()==0);
+    switch(key){
+        case '1':
+            open_menu();
+            break;
+        default:
+            break;
+        
+    }
+    
+
+    // IOCLR1 = 1<<EINT0_STATUS_LED;
+    //eint0 isr user activity ends
+    //clear EINT0 status in External Interrupt Peripheral 
+    EXTINT = 1<<0;
+    //clear EINT0 status in VIC peripheral
+    VICVectAddr = 0;
+}
+
+
+
 
 main(){
     init_system();
     delay_ms(10);
     // IODIR0 &= ~((1<<ENTRY_SW) | (1<<EINT_SW));
     IODIR0 &= ~(1<<ENTRY_SW);
-    IODIR1 |= 1<<EINT0_STATUS_LED;
+    // IODIR1 |= 1<<EINT0_STATUS_LED;
 
     //cfg p0.1 pin as EINT0 input pin
     CfgPortPinFunc(0,1,EINT0_PIN_0_1);
@@ -125,7 +279,7 @@ main(){
 
     // Set the initial time (hours, minutes, seconds)
 	SetRTCTimeInfo(00,00,00);
-	SetRTCDateInfo(27,11,2025);
+	SetRTCDateInfo(30,11,2025);
 	SetRTCDay(4);
 
     while(1){
@@ -160,14 +314,7 @@ main(){
                 CmdLCD(GOTO_LINE2_POS0);
                 StrLCD("  LOGIN FAILED  ");
             }
-            if(status==1){
-                delay_ms(1000);
-                CmdLCD(CLEAR_LCD);
-                StrLCD("HI BHASKAR");
-            }
         }
-
-        
         while(1){
             CmdLCD(CLEAR_LCD);
             display_RTC();
@@ -175,18 +322,4 @@ main(){
     }
 }
 
-void eint0_isr(void) __irq{
-    //eint0 isr user activity begins
-    //toggle EINT0 status led upon interrupt fired/raised
-    IOPIN1 ^= 1<<EINT0_STATUS_LED;
-    CmdLCD(CLEAR_LCD);
-    StrLCD("INT0 RUNNING");
-    delay_ms(7000);
-    IOCLR1 = 1<<EINT0_STATUS_LED;
-    CmdLCD(CLEAR_LCD);
-    //eint0 isr user activity ends
-    //clear EINT0 status in External Interrupt Peripheral 
-    EXTINT = 1<<0;
-    //clear EINT0 status in VIC peripheral
-    VICVectAddr = 0;
-}
+

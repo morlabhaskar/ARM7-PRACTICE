@@ -101,3 +101,21 @@ void BuildCGRAM(u8 *p,u8 nBytes){
     CmdLCD(GOTO_LINE1_POS0);
 }
 
+int my_atoi(char *str){
+    int i=0,sign=1,decimal=0;
+    while(str[i]==' '){
+        i++;
+    }
+    if(str[i]=='-'||str[i]=='+'){
+        if(str[i]=='-'){
+            sign=-1;
+        }
+        i++;
+    }
+    while(is_digit(str[i])){
+        decimal = decimal * 10 + (str[i]-'0');
+        i++;                                
+    }                                         
+    return decimal*sign;
+}
+
