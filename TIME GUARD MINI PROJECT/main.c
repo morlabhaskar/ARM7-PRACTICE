@@ -43,7 +43,7 @@ void display_title(){
 }
 
 void display_RTC(){
-    while(digitalRead(ENTRY_SW) && digitalRead(EINT_SW)){
+    while(digitalRead(ENTRY_SW)){
 
         // Get and display the current time on LCD
 	    GetRTCTimeInfo(&hour,&min,&sec);
@@ -111,17 +111,17 @@ u32 chack_password(){
 main(){
     init_system();
     delay_ms(10);
-    IODIR0 &= ~((1<<ENTRY_SW) | (1<<EINT_SW));
-    // IODIR0 &= ~(1<<ENTRY_SW);
-
-    // IODIR1 |= 1<<EINT0_STATUS_LED;
+    // IODIR0 &= ~((1<<ENTRY_SW) | (1<<EINT_SW));
+    IODIR0 &= ~(1<<ENTRY_SW);
+    IODIR1 |= 1<<EINT0_STATUS_LED;
 
     //cfg p0.1 pin as EINT0 input pin
-    // CfgPortPinFunc(0,1,EINT0_PIN_0_1);
-    // VICIntEnable = 1<<EINT0_VIC_CHNO;
-    // VICVectCntl0 = (1<<5) | EINT0_VIC_CHNO;
-    // VICVectAddr0 = (u32)eint0_isr;
-    // EXTMODE = 1<<0;
+    CfgPortPinFunc(0,1,EINT0_PIN_0_1);
+    VICIntEnable = 1<<EINT0_VIC_CHNO;
+    VICVectCntl0 = (1<<5) | EINT0_VIC_CHNO;
+    VICVectAddr0 = (u32)eint0_isr;
+    EXTMODE  = 1<<0;   // Edge trigger
+    EXTPOLAR = 0;      // Falling edge
 
     // Set the initial time (hours, minutes, seconds)
 	SetRTCTimeInfo(00,00,00);
@@ -132,7 +132,7 @@ main(){
         do{
             display_title();
             display_RTC();
-        }while(digitalRead(ENTRY_SW) && digitalRead(EINT_SW));
+        }while(digitalRead(ENTRY_SW));
         CmdLCD(CLEAR_LCD);
         //for entry switch
         if(digitalRead(ENTRY_SW)==0){
@@ -167,6 +167,7 @@ main(){
             }
         }
 
+        
         while(1){
             CmdLCD(CLEAR_LCD);
             display_RTC();
@@ -178,7 +179,11 @@ void eint0_isr(void) __irq{
     //eint0 isr user activity begins
     //toggle EINT0 status led upon interrupt fired/raised
     IOPIN1 ^= 1<<EINT0_STATUS_LED;
-    delay_ms(5000);
+    CmdLCD(CLEAR_LCD);
+    StrLCD("INT0 RUNNING");
+    delay_ms(7000);
+    IOCLR1 = 1<<EINT0_STATUS_LED;
+    CmdLCD(CLEAR_LCD);
     //eint0 isr user activity ends
     //clear EINT0 status in External Interrupt Peripheral 
     EXTINT = 1<<0;
