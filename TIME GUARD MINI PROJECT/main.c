@@ -18,7 +18,7 @@
 #define EINT0_STATUS_LED 16
 
 
-u8 password[] = "1234",pass[10];
+u8 password[] = "1234",pass[10],new1[6],new2[6];
 s32 hour,min,sec,date,month,year,day,is_login,temp;
 u32 key,i;
 
@@ -152,6 +152,7 @@ void change_time(){
     SetRTCTimeInfo(hour,min,sec);
     CmdLCD(CLEAR_LCD);
 }
+
 void change_date(){
     u8 str[4];
     CmdLCD(CLEAR_LCD);
@@ -206,6 +207,96 @@ void change_date(){
     CmdLCD(CLEAR_LCD);
     
 }
+// void change_password(){
+//             MENU:
+//             i = 0;
+//             CmdLCD(GOTO_LINE1_POS0);
+//             StrLCD("NEW PASSWORD    ");
+//             CmdLCD(GOTO_LINE2_POS0);
+//             StrLCD("                   ");
+//             CmdLCD(GOTO_LINE2_POS0 + 5);
+//             while (i < 4)
+//             {
+//                 key = KeyScan();
+//                 if (key >= '0' && key <= '9')
+//                 {
+//                     new1[i] = key;
+//                     CharLCD('*');
+//                     i++;
+//                 }
+//                 else if (key == 'C')
+//                 {
+//                     i--;
+//                     new1[i] = '\0';
+//                     CmdLCD(GOTO_LINE2_POS0 + 5 + i);
+//                     CharLCD(' ');
+//                     CmdLCD(GOTO_LINE2_POS0 + 5 + i);
+//                 }
+//                 new1[i] = '\0';
+//                 while (ColScan() == 0)
+//                     ;
+//             }
+//             new1[6] = '\0';
+//             if (strcmp(password, new1) == 0)
+//             {
+//                 CmdLCD(GOTO_LINE1_POS0);
+//                 StrLCD("PRESENT PASS");
+//                 CmdLCD(GOTO_LINE2_POS0);
+//                 StrLCD("PREV PASS SAME");
+//                 delay_ms(3000);
+//                 goto MENU;
+//             }
+//             else
+//             {
+//                 RE:
+//                 i = 0;
+//                 CmdLCD(GOTO_LINE1_POS0);
+//                 StrLCD("RE-ENTER PASS   ");
+//                 CmdLCD(GOTO_LINE2_POS0);
+//                 StrLCD("                   ");
+//                 CmdLCD(GOTO_LINE2_POS0 + 5);
+//                 while (i < 4)
+//                 {
+//                     key = KeyScan();
+//                     if (key >= '0' && key <= '9')
+//                     {
+//                         new2[i] = key;
+//                         CharLCD('*');
+//                         i++;
+//                     }
+//                     else if (key == 'C')
+//                     {
+//                         i--;
+//                         new2[i] = '\0';
+//                         CmdLCD(GOTO_LINE2_POS0 + 5 + i);
+//                         CharLCD(' ');
+//                         CmdLCD(GOTO_LINE2_POS0 + 5 + i);
+//                     }
+//                     new2[i] = '\0';
+//                     while (ColScan() == 0)
+//                         ;
+//                 }
+//                 new2[6] = '\0';
+//                 if (strcmp(new1, new2) == 0)
+//                 {
+//                     strcpy(pass, new1);
+//                     CmdLCD(GOTO_LINE1_POS0);
+//                     StrLCD("CONGRATULATIONS ");
+//                     CmdLCD(GOTO_LINE2_POS0);
+//                     StrLCD("PASSWORD CHANGED");
+//                 }
+//                 else
+//                 {
+//                     CmdLCD(GOTO_LINE1_POS0);
+//                     StrLCD("NEW PASS RE PASS");
+//                     CmdLCD(GOTO_LINE2_POS0);
+//                     StrLCD("NOT MATCHED    ");
+//                     delay_ms(2000);
+//                     goto RE;
+//                 }
+//             }
+        
+// }
 void open_menu(){
     CmdLCD(GOTO_LINE1_POS0);
     StrLCD("1:CPWD 2:CTIME");
@@ -216,6 +307,9 @@ void open_menu(){
     while(ColScan()==0);
     CmdLCD(CLEAR_LCD);
     switch(key){
+        // case '1':
+        //     change_password();
+        //     break;   
         case '2':
             change_time();
             break;   
@@ -229,7 +323,7 @@ void open_menu(){
 void eint0_isr(void) __irq{
     //eint0 isr user activity begins
     //toggle EINT0 status led upon interrupt fired/raised
-    IOPIN1 ^= 1<<EINT0_STATUS_LED;
+    // IOPIN1 ^= 1<<EINT0_STATUS_LED;
     // CmdLCD(CLEAR_LCD);
     
     CmdLCD(GOTO_LINE1_POS0);
@@ -237,8 +331,6 @@ void eint0_isr(void) __irq{
     CmdLCD(GOTO_LINE2_POS0);
     StrLCD("   TO PRESS 1   "); 
     
-    
-   
     key=KeyScan();
     while(ColScan()==0);
     switch(key){
@@ -247,10 +339,7 @@ void eint0_isr(void) __irq{
             break;
         default:
             break;
-        
     }
-    
-
     // IOCLR1 = 1<<EINT0_STATUS_LED;
     //eint0 isr user activity ends
     //clear EINT0 status in External Interrupt Peripheral 
