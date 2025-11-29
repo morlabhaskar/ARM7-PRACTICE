@@ -95,6 +95,8 @@ u32 chack_password(){
         StrLCD("WAIT 2 SECONDS     ");
         is_login=1;
         delay_ms(2000);
+        // IOCLR0 = 1<<25;
+        // IOSET0 = 1<<26;
         return 1;
     }
     else{
@@ -271,6 +273,8 @@ void change_password(){
             StrLCD("PASSWORD CHANGED");
             delay_ms(2000);
             CmdLCD(CLEAR_LCD);
+            // IOCLR0 = 1<<25;
+            // IOSET0 = 1<<26;
         }
         else{
             CmdLCD(GOTO_LINE1_POS0);
@@ -307,6 +311,7 @@ void open_menu(){
     }
 }
 void eint0_isr(void) __irq{
+    // IOSET1 = 1<<28;
     
     CmdLCD(GOTO_LINE1_POS0);
     StrLCD("   SHOW MENU   ");
@@ -328,17 +333,17 @@ void eint0_isr(void) __irq{
     EXTINT = 1<<0;
     //clear EINT0 status in VIC peripheral
     VICVectAddr = 0;
+    // IOCLR1 = 1<<28;
 }
-
-
-
-
 main(){
     init_system();
     delay_ms(10);
     // IODIR0 &= ~((1<<ENTRY_SW) | (1<<EINT_SW));
     IODIR0 &= ~(1<<ENTRY_SW);
-    // IODIR1 |= 1<<EINT0_STATUS_LED;
+
+    // IODIR0 |= 1<<25;
+    // IODIR0 |= 1<<26;
+    // IODIR1 |= 1<<28;
 
     //cfg p0.1 pin as EINT0 input pin
     CfgPortPinFunc(0,1,EINT0_PIN_0_1);
@@ -352,6 +357,7 @@ main(){
 	SetRTCTimeInfo(00,00,00);
 	SetRTCDateInfo(30,11,2025);
 	SetRTCDay(4);
+    // IOSET0 = 1<<25;
 
     while(1){
         do{
