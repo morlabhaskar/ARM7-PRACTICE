@@ -9,3 +9,7 @@ main(){
         Read_ADC(0,&adcDval,&eAR);
     }
 }
+
+
+
+
