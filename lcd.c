@@ -101,7 +101,7 @@ void BuildCGRAM(u8 *p,u8 nBytes){
     CmdLCD(GOTO_LINE1_POS0);
 }
 
-int my_atoi(char *str){
+/*int my_atoi(char *str){
     int i=0,sign=1,decimal=0;
     while(str[i]==' '){
         i++;
@@ -117,5 +117,5 @@ int my_atoi(char *str){
         i++;                                
     }                                         
     return decimal*sign;
-}
+}*/
 

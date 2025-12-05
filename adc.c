@@ -27,3 +27,4 @@ void Read_ADC(u32 chNo,u32 *adcDVal,f32 *analogReading){
     //convert to equivalent analog reading in volts
     *analogReading=*adcDVal*(3.3/1024);
 }
+
