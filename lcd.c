@@ -101,11 +101,12 @@ void BuildCGRAM(u8 *p,u8 nBytes){
     CmdLCD(GOTO_LINE1_POS0);
 }
 
-/*int my_atoi(char *str){
+int is_digit(char dig){//'a'
+    if(dig>='0' && dig<='9') return 1;
+    return 0;
+}
+int my_atoi(char *str){
     int i=0,sign=1,decimal=0;
-    while(str[i]==' '){
-        i++;
-    }
     if(str[i]=='-'||str[i]=='+'){
         if(str[i]=='-'){
             sign=-1;
@@ -117,5 +118,5 @@ void BuildCGRAM(u8 *p,u8 nBytes){
         i++;                                
     }                                         
     return decimal*sign;
-}*/
+}
 

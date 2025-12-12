@@ -1,8 +1,6 @@
 #include<LPC21xx.h>
 #include "types.h"
-#include "lcd.h"
 #include "delay.h"
-#include "lcd_defines.h"
 #include "pin_functions_defines.h"
 #include "pin_connect_block.h"
 
@@ -15,10 +13,10 @@ u32 gCount;
 main(){
     //cfg EINT0 status led pin as gpio output
     IODIR1 |= 1<<EINT0_STATUS_LED;
-    Init_LCD();
 
     //cfg p0.1 pin as EINT0 input pin
-    CfgPortPinFunc(0,1,EINT0_PIN_0_1);
+    //CfgPortPinFunc(0,1,EINT0_PIN_0_1);
+		PINSEL0 = ((PINSEL0 &~ (3<<(1*2))) | (EINT0_PIN_0_1<<(1*2)));
     
     //cfg VIC peripheral for EINT0
     //cfg EINT0 as irq type, def all are anyway irq
@@ -37,14 +35,8 @@ main(){
     //cfg EINT0 for falling edge triggering,def FE anyway
     //EXTPOLAR = 0;
     //enter regular operations
-    CmdLCD(CLEAR_LCD);
     while(1){
         gCount++;
-        CmdLCD(GOTO_LINE1_POS0);
-        StrLCD("   COUNT   ");
-        CmdLCD(GOTO_LINE2_POS0);
-        U32LCD(gCount);
-        
     }
 }
 
@@ -52,7 +44,7 @@ void eint0_isr(void) __irq{
     //eint0 isr user activity begins
     //toggle EINT0 status led upon interrupt fired/raised
     IOPIN1 ^= 1<<EINT0_STATUS_LED;
-    delay_ms(5000);
+    //delay_ms(5000);
     //eint0 isr user activity ends
     //clear EINT0 status in External Interrupt Peripheral 
     EXTINT = 1<<0;
