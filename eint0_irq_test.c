@@ -16,7 +16,7 @@ main(){
 
     //cfg p0.1 pin as EINT0 input pin
     //CfgPortPinFunc(0,1,EINT0_PIN_0_1);
-		PINSEL0 = ((PINSEL0 &~ (3<<(1*2))) | (EINT0_PIN_0_1<<(1*2)));
+	PINSEL0 = ((PINSEL0 &~ (3<<(1*2))) | (EINT0_PIN_0_1<<(1*2)));
     
     //cfg VIC peripheral for EINT0
     //cfg EINT0 as irq type, def all are anyway irq

@@ -6,7 +6,6 @@
 
 // Array to hold names of days of the week
 char week[][4] = {"SUN","MON","TUE","WED","THU","FRI","SAT"};
-
 /*
 Initialize the Real-Time Clock (RTC)
 This function disables the RTC, sets the prescaler values, 
@@ -27,7 +26,6 @@ void RTC_Init(void) {
 	
     #endif
 }
-
 /*
 Get the current RTC time
 hour Pointer to store the current hour
@@ -39,7 +37,6 @@ void GetRTCTimeInfo(s32 *hour, s32 *minute, s32 *second){
 	*minute = MIN;
 	*second = SEC;
 }
-
 /*
 Display the RTC time on LCD
 hour value (0 23)
@@ -57,7 +54,6 @@ void DisplayRTCTime(u32 hour, u32 minute, u32 second){
 	CharLCD((second/10)+48);
 	CharLCD((second%10)+48);
 }
-
 /*
 Get the current RTC date
 day Pointer to store the current date (1 31)
@@ -96,7 +92,6 @@ void SetRTCTimeInfo(u32 hour, u32 minute, u32 second){
 	MIN = minute;
 	SEC = second;
 }
-
 /*
 Set the RTC date
 day of month to set (1 31)
@@ -108,7 +103,6 @@ void SetRTCDateInfo(u32 date, u32 month, u32 year){
 	MONTH = month;
 	YEAR = year;	
 }
-
 /*
 Get the current day of the week
 dow Pointer to store Day of Week (0=Sunday, ..., 6=Saturday)
@@ -116,7 +110,6 @@ dow Pointer to store Day of Week (0=Sunday, ..., 6=Saturday)
 void GetRTCDay(s32 *day){
 	*day = DOW; 
 }
-
 /*
 Display the current day of the week on LCD
 dow (Day of Week) (0=Sunday, ..., 6=Saturday)
@@ -125,7 +118,6 @@ void DisplayRTCDay(u32 dow){
 	CmdLCD(GOTO_LINE1_POS0+10);
 	StrLCD(week[dow]);
 }
-
 /*
 Set the day of the week in RTC
 Day of Week to set (0=Sunday, ..., 6=Saturday)
