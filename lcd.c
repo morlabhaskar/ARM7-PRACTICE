@@ -90,7 +90,7 @@ void F32LCD(f32 fn,u32 nDp){
 void BuildCGRAM(u8 *p,u8 nBytes){
     u32 i;
     //point to CGRAM start
-    CmdLCD(GOTO_CGRAM_START);
+    CmdLCD(GOTO_CGRAM_START);//0x40
     //select data register
     digitalWrite(LCD_RS,1);
     //write to CGRAM , required bytes for custom char
