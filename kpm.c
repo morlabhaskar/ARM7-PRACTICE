@@ -12,7 +12,7 @@ u32 kpmLUT[4][4]={{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16}};
 //     {0x04,0x06,0x1F,0x06,0x04,0x00,0x00,0x00}, // Arrow
 //     {0x04,0x0E,0x0E,0x04,0x00,0x04,0x00,0x00}  // Warning
 // };
-void Init_KPM(void){ 
+void Init_KPM(void){
     //rows output & grounded
     IODIR1 |= 15<<ROW0;
     //cols input & high, any by default

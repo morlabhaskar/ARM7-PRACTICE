@@ -14,3 +14,5 @@ void CfgPortPinFunc(u32 PortNo,u32 PinNo,u32 PinFunc){
         //not required for LPC2129
     }
 }
+
+
